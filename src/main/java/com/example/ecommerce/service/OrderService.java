@@ -10,9 +10,12 @@ public interface OrderService {
 
     Order getOrderById(long id);
 
-    void updateOrder(Order order);
+    void updateOrder(Long id, Order order);
 
     void deleteOrder(long id);
 
     void cancelOrder(Long id);
+
+    void updateOrderStatus(Long orderId, String newStatus);
+
 }

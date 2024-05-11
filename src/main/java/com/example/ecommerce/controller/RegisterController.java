@@ -23,6 +23,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String register(Customer customer,Model model) {
+        customer.setRole("USER");
         if (customerService.register(customer)) {
             return "redirect:/login";
         } else {

@@ -11,7 +11,7 @@
 <div class="container">
   <h2 class="text-center mb-5">Edit Customer</h2>
   
-  <form th:action="@{'/managementUser/update/' + ${customer.id}}" method="post">
+  <form th:action="@{'/ManagementUser/update/' + ${customer.id}}" method="post">
     <input type="hidden" th:field="*{id}"/>
     
     <div class="mb-3">
@@ -57,7 +57,7 @@
       </select>
     </div>
     
-    <button type="submit" class="btn btn-primary" href="/managementUser/update/{id}">Save Changes</button>
+    <button type="submit" class="btn btn-primary" href="/ManagementUser/update/{id}">Save Changes</button>
   </form>
 </div>
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -15,23 +16,21 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
-    // Hiển thị tất cả các đơn hàng
     @GetMapping("")
     public String showAllOrders(Model model) {
         List<Order> orders = orderService.getAllOrders();
         model.addAttribute("orders", orders);
-        return "managementOrder";
+        return "ManagementOrder";
     }
     @GetMapping("/edit/{id}")
-    public String showEditOrderForm(@PathVariable("id") long id, Model model) {
+    public String showEditOrderForm(@PathVariable("id") Long id, Model model) {
         Order order = orderService.getOrderById(id);
         model.addAttribute("order", order);
-        return "edit_order";
+        return "editOrder";
     }
-    @PostMapping("/edit/{id}")
-    public String editOrder(@PathVariable("id") long id, @ModelAttribute("order") Order order) {
-        order.setId(id);
-        orderService.updateOrder(order);
+    @PostMapping("/update/{id}")
+    public String updateOrder(@PathVariable("id") Long id, @ModelAttribute Order order) {
+        orderService.updateOrder(id, order);
         return "redirect:/ManagementOrder";
     }
     @GetMapping("/delete/{id}")
@@ -39,5 +38,4 @@ public class OrderController {
         orderService.deleteOrder(id);
         return "redirect:/ManagementOrder";
     }
-
 }

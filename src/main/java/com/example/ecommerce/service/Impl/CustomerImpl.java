@@ -31,6 +31,12 @@ public class CustomerImpl implements CustomerService {
     public Optional<Customer> getUserById(Long id) {
         return customerRepository.findById(id);
     }
+
+    @Override
+    public Customer findCustomerByUsername(String username) {
+        return customerRepository.findByUsername(username);
+    }
+
     @Override
     public Customer updateUser(Customer customer) {
 //        Customer customer = new Customer();

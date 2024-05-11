@@ -26,7 +26,7 @@ public class OrderImpl implements OrderService {
         return orderRepository.findById(id).orElse(null);
     }
     @Override
-    public void updateOrder(Order order) {
+    public void updateOrder(Long id, Order order) {
         orderRepository.save(order);
     }
     @Override
@@ -36,5 +36,14 @@ public class OrderImpl implements OrderService {
     @Override
     public void cancelOrder(Long id) {
        orderRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateOrderStatus(Long orderId, String newStatus) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null) {
+            order.setOrderStatus(newStatus);
+            orderRepository.save(order);
+        }
     }
 }

@@ -18,4 +18,5 @@ public interface CustomerService {
     Customer updateUser(Customer updatedCustomer);
     Optional<Customer> getUserById(Long id);
 
+    Customer findCustomerByUsername(String username);
 }

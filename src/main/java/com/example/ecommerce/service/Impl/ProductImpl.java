@@ -7,7 +7,6 @@ import com.example.ecommerce.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,11 +36,6 @@ public class ProductImpl implements ProductService {
         return (Product) productRepository.findById(id).orElse(null);
     }
     @Override
-    public void saveProduct(Product product){
-         productRepository.save(product);
-    }
-
-    @Override
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
     }
@@ -59,7 +53,7 @@ public class ProductImpl implements ProductService {
     private String generateImagePath(MultipartFile file) throws IOException {
         String fileExtension = getFileExtension(file.getOriginalFilename());
 
-        File file1 = new File("C:\\Users\\ADMIN\\IdeaProjects\\demo1\\src\\main\\resources\\static\\image\\" + file.getOriginalFilename());
+        File file1 = new File("C:\\Users\\ADMIN\\IdeaProjects\\demo1\\image\\" + file.getOriginalFilename());
 
         try (OutputStream os = new FileOutputStream(file1)) {
             os.write(file.getBytes());
@@ -70,10 +64,14 @@ public class ProductImpl implements ProductService {
     private String getFileExtension(String originalFilename) {
         return "";
     }
-
+    @Override
     public List<Product> findTop4ByIdDesc() {
         Pageable pageable = PageRequest.of(0, 4);
         return productRepository.findTop4ByIdDesc(pageable);
     }
 
+    @Override
+    public List<Product> searchProducts(String keyword) {
+        return productRepository.searchProducts(keyword);
+    }
 }

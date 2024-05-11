@@ -12,9 +12,10 @@ import java.util.List;
 public interface ProductService {
     Page<Product> getAllProducts(Pageable pageable);
     Product getProductByID(Long id);
-    void saveProduct(Product product);
     void deleteProduct(Long id);
     void updateProduct(UpSertProduct product) throws IOException;
     List<Product> findTop4ByIdDesc();
+
+    List<Product> searchProducts(String keyword);
 }
 

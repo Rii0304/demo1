@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("managementUser")
+@RequestMapping("ManagementUser")
 public class ManagementUser {
     @Autowired
     private CustomerService customerService;
@@ -36,11 +36,11 @@ public class ManagementUser {
     public String editCustomer(@PathVariable Long id, @ModelAttribute Customer updatedCustomer) {
         updatedCustomer.setId(id);
         customerService.updateUser(updatedCustomer);
-        return "redirect:/managementUser";
+        return "redirect:/ManagementUser";
     }
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         customerService.deleteUser(id);
-        return "redirect:/managementUser";
+        return "redirect:/ManagementUser";
     }
 }

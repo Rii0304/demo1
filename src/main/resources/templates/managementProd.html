@@ -15,7 +15,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="/managementUser">Users</a>
+            <a class="nav-link" href="/ManagementUser">Users</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/ManagementProd">Products</a>
@@ -40,7 +40,6 @@
           <th>Image</th>
           <th>Price</th>
           <th>Details</th>
-<!--          <th>Category</th>-->
           <th>Action</th>
         </tr>
       </thead>
@@ -64,7 +63,6 @@
               <span th:text="${prod.details}"></span>
             </div>
           </td>
-<!--          <td th:text="${prod.category}"></td>-->
           <td style="white-space: nowrap">
             <a class="btn btn-primary btn-sm" th:href="@{'/ManagementProd/edit/' + ${prod.id}}">Edit</a>
             <a class="btn btn-primary btn-sm" th:href="@{/ManagementProd/delete/{id}(id=${prod.id})}">Delete</a>

@@ -19,15 +19,15 @@
                         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/home">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="/products">All Products</a></li>
                       <li class="nav-item"><a class="nav-link" href="/order">Order List</a></li>
-                      <li class="nav-item"><a class="nav-link" href="/guest">LOGOUT</a></li>
+                      <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                     </ul>
                   
-                  <div class="search-container">
+                  <form th:action="@{/search}" method="get" class="d-flex">
                     <label>
-                      <input type="text" class="search-input" placeholder="Search...">
+                      <input class="form-control me-2" type="search" placeholder="Search..." name="keyword" aria-label="Search">
                     </label>
-                    <button class="search-button">Search</button>
-                  </div>
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                  </form>
                     <form class="d-flex">
                         <a class="btn btn-outline-dark" type="submit" href="/cart/view">
                             <i class="bi-cart-fill me-1"></i>

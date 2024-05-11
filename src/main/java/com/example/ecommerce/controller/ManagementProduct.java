@@ -54,25 +54,16 @@ public class ManagementProduct {
         productService.updateProduct(product);
         return "redirect:/ManagementProd";
     }
-//    @PostMapping("creates")
-//    public String createProduct(@ModelAttribute UpSertProduct product) throws IOException {
-//
-//
-//        productService.updateProduct(product);
-//
-//        return "redirect:/products";
-//    }
+
     @GetMapping("/edit/{id}")
     public String showEditProductForm(@PathVariable("id") Long id, Model model) {
         Product product = productService.getProductByID(id);
         model.addAttribute("product", product);
+
+        List<Category> categories = categoryService.getAllCategories();
+        model.addAttribute("categories", categories);
         return "editProd";
     }
-//    @PostMapping("/update/{id}")
-//    public String updateProduct(@PathVariable("id") Long id, @ModelAttribute("product") Product updatedProduct) {
-//        productService.updateProduct(id, updatedProduct);
-//        return "redirect:/ManagementProd";
-//    }
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);

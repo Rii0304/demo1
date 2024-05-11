@@ -19,5 +19,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     void deleteById(Long id);
     @Query("SELECT p FROM Product p ORDER BY p.id DESC")
     List<Product> findTop4ByIdDesc(Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.productName LIKE %?1% OR p.category.categoryName LIKE %?1%")
+    List<Product> searchProducts(String keyword);
 }
 

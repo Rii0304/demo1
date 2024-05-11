@@ -17,18 +17,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
         <li class="nav-item"><a class="nav-link active" aria-current="page" href="/guest">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/products/guest">All Products</a></li>
+        <li class="nav-item"><a class="nav-link" href="/guest/products">All Products</a></li>
         <li class="nav-item"><a class="nav-link" href="/login">LOGIN</a></li>
       </ul>
       
-      <div class="search-container">
+      <form th:action="@{/search}" method="get" class="d-flex">
         <label>
-          <input type="text" class="search-input" placeholder="Search...">
+          <input class="form-control me-2" type="search" placeholder="Search..." name="keyword" aria-label="Search">
         </label>
-        <button class="search-button">Search</button>
-      </div>
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
       <form class="d-flex">
-        <a class="btn btn-outline-dark" type="submit" href="/cart/view">
+        <a class="btn btn-outline-dark" type="submit" href="/guest/view">
           <i class="bi-cart-fill me-1"></i>
           Cart
         </a>
@@ -65,7 +65,7 @@
             </div>
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent"></div>
             <div class="text-center">
-              <a class="btn btn-outline-dark mt-auto" th:href="@{/add/guest/{id}(id=${product.id})}">Add to cart</a>
+              <a class="btn btn-outline-dark mt-auto" th:href="@{/guest/add/{id}(id=${product.id})}">Add to cart</a>
             </div>
           </div>
         </div>
