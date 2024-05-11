@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Shopping Cart</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script
+          src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script
+          src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>List Products</h2>
+  <div class="rows">
+    <table class="table table-bordered">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item: ${CART_ITEM}">
+        <form action="/update/guest" method="post">
+          <input type="hidden" name="id" th:value="${item.productId}" />
+          <td th:text="${item.productId}"></td>
+          <td th:text="${item.name}"></td>
+          <td th:text="${item.price}"></td>
+          <td><input name="qty" th:text="${item.qty}"
+                     onblur="this.form.submit()" style="width: 50px;"></td>
+          <td th:text="${item.price*item.qty}"></td>
+          <td><a class="btn btn-primary btn-sm"
+                 th:href="@{/remove/guest/{id}(id=${item.productId})}">Remove</a></td>
+        </form>
+      </tr>
+      
+      </tbody>
+    </table>
+    <p th:text="${'Total: $' + TOTAL}">Total: </p>
+    <hr />
+    <a class="btn btn-primary btn-sm" href="/clear/guest">Clear All</a>
+    <a class="btn btn-primary btn-sm" href="/login">Check Out</a>
+  </div>
+</div>
+</body>
+</html>
