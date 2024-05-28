@@ -39,7 +39,6 @@ public class CustomerImpl implements CustomerService {
 
     @Override
     public Customer updateUser(Customer customer) {
-//        Customer customer = new Customer();
         customer.setFullName(customer.getFullName());
         customer.setDateOfBirth(customer.getDateOfBirth());
         customer.setAddress(customer.getAddress());

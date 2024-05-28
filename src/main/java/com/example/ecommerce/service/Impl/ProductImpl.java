@@ -40,31 +40,6 @@ public class ProductImpl implements ProductService {
         productRepository.deleteById(id);
     }
     @Override
-    public void updateProduct(UpSertProduct product) throws IOException{
-        Product entity = new Product();
-        entity.setProductName(product.getProductName());
-        entity.setDescription(product.getDescription());
-        entity.setImageURL(generateImagePath(product.getImageURL()));
-        entity.setPrice(product.getPrice());
-        entity.setDetails(product.getDetails());
-        entity.setCategory(product.getCategory());
-        productRepository.save(entity);
-    }
-    private String generateImagePath(MultipartFile file) throws IOException {
-        String fileExtension = getFileExtension(file.getOriginalFilename());
-
-        File file1 = new File("C:\\Users\\ADMIN\\IdeaProjects\\demo1\\image\\" + file.getOriginalFilename());
-
-        try (OutputStream os = new FileOutputStream(file1)) {
-            os.write(file.getBytes());
-        }
-
-        return file1.getAbsolutePath();
-    }
-    private String getFileExtension(String originalFilename) {
-        return "";
-    }
-    @Override
     public List<Product> findTop4ByIdDesc() {
         Pageable pageable = PageRequest.of(0, 4);
         return productRepository.findTop4ByIdDesc(pageable);
@@ -73,5 +48,41 @@ public class ProductImpl implements ProductService {
     @Override
     public List<Product> searchProducts(String keyword) {
         return productRepository.searchProducts(keyword);
+    }
+
+    @Override
+    public void createProd(UpSertProduct product) throws IOException {
+        Product entity = new Product();
+        entity.setProductName(product.getProductName());
+        entity.setPrice(product.getPrice());
+        entity.setDetails(product.getDetails());
+        entity.setImageURL(generateImagePath(product.getImageURL()));
+        entity.setDescription(product.getDescription());
+        entity.setCategory(product.getCategory());
+        productRepository.save(entity);
+    }
+    private String generateImagePath(MultipartFile file) throws IOException {
+        File file1 = new File("C:\\Users\\ADMIN\\IdeaProjects\\demo1\\src\\main\\resources\\static\\image\\" + file.getOriginalFilename());
+
+        try (OutputStream os = new FileOutputStream(file1)) {
+            os.write(file.getBytes());
+        }
+
+        return "/image/" + file.getOriginalFilename();
+    }
+
+    @Override
+    public Product updateProd(Product product) throws IOException {
+        product.setCategory(product.getCategory());
+        product.setProductName(product.getProductName());
+        product.setDescription(product.getDescription());
+        product.setDetails(product.getDetails());
+        product.setPrice(product.getPrice());
+        product.setImageURL(generateImagePath(product.getImageURL()));
+        return productRepository.save(product);
+    }
+
+    private String generateImagePath(String imageURL) {
+        return "";
     }
 }

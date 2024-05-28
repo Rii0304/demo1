@@ -1,6 +1,7 @@
 package com.example.ecommerce.entity;
 
 import jakarta.persistence.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serializable;
 

@@ -3,6 +3,7 @@ package com.example.ecommerce.controller;
 import com.example.ecommerce.bean.CreatProd;
 import com.example.ecommerce.domain.UpSertProduct;
 import com.example.ecommerce.entity.Category;
+import com.example.ecommerce.entity.Customer;
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.service.CategoryService;
@@ -51,7 +52,7 @@ public class ManagementProduct {
     }
     @PostMapping("/create")
     public String createProduct(@ModelAttribute UpSertProduct product) throws IOException {
-        productService.updateProduct(product);
+        productService.createProd(product);
         return "redirect:/ManagementProd";
     }
 
@@ -64,6 +65,13 @@ public class ManagementProduct {
         model.addAttribute("categories", categories);
         return "editProd";
     }
+    @PostMapping("/update/{id}")
+    public String updateProd(@PathVariable Integer id, @ModelAttribute Product updatedProd) throws IOException {
+        updatedProd.setId(id);
+        productService.updateProd(updatedProd);
+        return "redirect:/ManagementProd";
+    }
+
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
