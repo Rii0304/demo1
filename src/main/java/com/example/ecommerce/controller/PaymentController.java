@@ -1,6 +1,7 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.config.Config;
+import jakarta.websocket.server.PathParam;
 import lombok.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -15,12 +17,12 @@ import java.util.*;
 @RestController
 public class PaymentController {
     @GetMapping("/pay")
-    public String getPay() throws UnsupportedEncodingException {
+    public String getPay(@PathParam("totalPrice") Long totalPrice, @PathParam("contractId") Integer contractId) throws UnsupportedEncodingException {
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        long amount = 10000*100;
+        long amount = 100L * totalPrice;
         String bankCode = "NCB";
 
         String vnp_TxnRef = Config.getRandomNumber(8);

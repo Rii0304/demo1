@@ -4,6 +4,7 @@ import com.example.ecommerce.bean.CreatProd;
 import com.example.ecommerce.domain.UpSertProduct;
 import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Customer;
+import com.example.ecommerce.entity.Order;
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.service.CategoryService;
@@ -65,10 +66,15 @@ public class ManagementProduct {
         model.addAttribute("categories", categories);
         return "editProd";
     }
+//    @PostMapping("/update/{id}")
+//    public String updateProd(@PathVariable Integer id, @ModelAttribute Product updatedProd) throws IOException {
+//        updatedProd.setId(id);
+////        productService.updateProd(updatedProd);
+//        return "redirect:/ManagementProd";
+//    }
     @PostMapping("/update/{id}")
-    public String updateProd(@PathVariable Integer id, @ModelAttribute Product updatedProd) throws IOException {
-        updatedProd.setId(id);
-        productService.updateProd(updatedProd);
+    public String updateProd(@PathVariable("id") Long id, @ModelAttribute UpSertProduct product) throws IOException {
+        productService.updateProd(id, product);
         return "redirect:/ManagementProd";
     }
 
