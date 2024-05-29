@@ -31,7 +31,6 @@ public class Guest {
         model.addAttribute("newestProducts", newestProducts);
         return "homeGuest";
     }
-
     @GetMapping("/guest/products")
     public String getAllProducts(Model model, @RequestParam(defaultValue = "0") int page) {
         int pageSize = 12;
@@ -43,6 +42,12 @@ public class Guest {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", productPage.getTotalPages());
         return "allProGuest";
+    }
+    @GetMapping("/guest/products/{id}")
+    public String getProductByID(@PathVariable("id") Long id, Model model) {
+        Product  products = productService.getProductByID(id);
+        model.addAttribute("prod", products);
+        return "guestDetailProd";
     }
     @GetMapping("/guest/view")
     public String showCart(Model model) {
@@ -78,5 +83,19 @@ public class Guest {
     public String update(@RequestParam("qty")Integer qty,@RequestParam("id") String id) {
         cartService.update(Integer.parseInt(id), qty);
         return "redirect:/guest/view";
+    }
+
+    @GetMapping("/search-guest")
+    public String searchProducts(@RequestParam("keyword") String keyword, Model model) {
+        List<Product> products = productService.searchProducts(keyword);
+        model.addAttribute("products", products);
+        return "searchGuest";
+    }
+    @PostMapping("/guest/searchPrice")
+    public String searchByPrice(@RequestParam("Min") Double minPrice, @RequestParam("Max") Double maxPrice, Model model) {
+
+        List<Product> products = productService.findProductsByPriceRange(minPrice, maxPrice);
+        model.addAttribute("products", products);
+        return "searchGuest";
     }
 }

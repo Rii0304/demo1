@@ -1,6 +1,7 @@
 package com.example.ecommerce.service.Impl;
 
 import com.example.ecommerce.domain.UpSertProduct;
+import com.example.ecommerce.entity.Order;
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.service.ProductService;
@@ -51,6 +52,18 @@ public class ProductImpl implements ProductService {
     }
 
     @Override
+    public void updateProd(Long id, UpSertProduct product) throws IOException {
+        Product prod = (Product) productRepository.findById(id).orElse(null);
+        prod.setProductName(product.getProductName());
+        prod.setPrice(product.getPrice());
+        prod.setDetails(product.getDetails());
+        prod.setImageURL(generateImagePath(product.getImageURL()));
+        prod.setDescription(product.getDescription());
+        prod.setCategory(product.getCategory());
+        productRepository.save(prod);
+    }
+
+    @Override
     public void createProd(UpSertProduct product) throws IOException {
         Product entity = new Product();
         entity.setProductName(product.getProductName());
@@ -61,6 +74,12 @@ public class ProductImpl implements ProductService {
         entity.setCategory(product.getCategory());
         productRepository.save(entity);
     }
+
+    @Override
+    public List<Product> findProductsByPriceRange(Double minPrice, Double maxPrice) {
+        return productRepository.findByPriceBetween(minPrice, maxPrice);
+    }
+
     private String generateImagePath(MultipartFile file) throws IOException {
         File file1 = new File("C:\\Users\\ADMIN\\IdeaProjects\\demo1\\src\\main\\resources\\static\\image\\" + file.getOriginalFilename());
 
@@ -69,17 +88,6 @@ public class ProductImpl implements ProductService {
         }
 
         return "/image/" + file.getOriginalFilename();
-    }
-
-    @Override
-    public Product updateProd(Product product) throws IOException {
-        product.setCategory(product.getCategory());
-        product.setProductName(product.getProductName());
-        product.setDescription(product.getDescription());
-        product.setDetails(product.getDetails());
-        product.setPrice(product.getPrice());
-        product.setImageURL(generateImagePath(product.getImageURL()));
-        return productRepository.save(product);
     }
 
     private String generateImagePath(String imageURL) {

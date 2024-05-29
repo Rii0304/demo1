@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -22,9 +23,10 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String register(Customer customer,Model model) {
+    public String register(Customer customer, RedirectAttributes redirectAttributes, Model model) {
         customer.setRole("USER");
         if (customerService.register(customer)) {
+            redirectAttributes.addFlashAttribute("successMessage", "Sign Up Success!");
             return "redirect:/login";
         } else {
             model.addAttribute("error");

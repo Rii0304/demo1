@@ -15,7 +15,9 @@ public interface ProductService {
     void deleteProduct(Long id);
     List<Product> findTop4ByIdDesc();
     List<Product> searchProducts(String keyword);
-    Product updateProd(Product updatedProd) throws IOException;
+    void updateProd(Long id,UpSertProduct product) throws IOException;
     void createProd(UpSertProduct product) throws IOException;
+    List<Product> findProductsByPriceRange(Double minPrice, Double maxPrice);
+
 }
 

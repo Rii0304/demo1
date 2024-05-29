@@ -1,0 +1,27 @@
+body {
+  background-color: #f8f9fa; /* Màu nền sáng hơn */
+}
+
+.container {
+  background-color: #ffffff; /* Nền trắng cho vùng nội dung */
+  border-radius: 5px; /* Bo góc cho container */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Tạo bóng cho container */
+  padding: 20px; /* Khoảng cách bên trong container */
+}
+
+.table {
+  margin-bottom: 20px; /* Khoảng cách phía dưới bảng */
+}
+
+.thead-dark th {
+  background-color: #343a40; /* Màu nền cho tiêu đề bảng */
+  color: #ffffff; /* Màu chữ cho tiêu đề bảng */
+}
+
+.btn {
+  transition: background-color 0.3s, color 0.3s; /* Hiệu ứng chuyển màu cho nút */
+}
+
+.btn:hover {
+  opacity: 0.9; /* Giảm độ sáng khi hover */
+}

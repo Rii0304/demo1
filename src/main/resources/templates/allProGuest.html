@@ -21,7 +21,7 @@
         <li class="nav-item"><a class="nav-link" href="/login">LOGIN</a></li>
       </ul>
       
-      <form th:action="@{/search}" method="get" class="d-flex">
+      <form th:action="@{/search-guest}" method="get" class="d-flex">
         <label>
           <input class="form-control me-2" type="search" placeholder="Search..." name="keyword" aria-label="Search">
         </label>
@@ -36,7 +36,16 @@
     </div>
   </div>
 </nav>
-
+<div class="container mt-4">
+  <h3>Search By Price</h3>
+  <form action="/guest/searchPrice" method="post" class="form-inline">
+    <div class="input-group mb-3" style="width: 700px">
+      <input name="Min" class="form-control" placeholder="Min Price" aria-label="Min Price" required>
+      <input name="Max" class="form-control ms-2" placeholder="Max Price" aria-label="Max Price" required>
+      <button class="btn btn-outline-primary ms-2" type="submit">Search</button>
+    </div>
+  </form>
+</div>
 
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
@@ -47,7 +56,7 @@
             <div class="card-body p-4">
               <div class="text-center">
                 <img th:src="${prod.imageURL}" width="200" height="200" alt="">
-                <a th:href="@{/products/{id}(id=${prod.id})}" class="text-decoration-none"><h5 th:text="${prod.productName}"></h5></a>
+                <a th:href="@{/guest/products/{id}(id=${prod.id})}" class="text-decoration-none"><h5 th:text="${prod.productName}"></h5></a>
                 <p th:text="${'Price: $' + prod.price}"></p>
               </div>
             </div>
@@ -65,15 +74,15 @@
 </section>
 
 <div th:if="${totalPages > 1}">
-  <ul>
-    <li th:if="${currentPage != 0}">
-      <a th:href="@{/products?page=${currentPage - 1}}">Previous</a>
+  <ul class="pagination justify-content-center">
+    <li class="page-item" th:if="${currentPage > 0}">
+      <a class="page-link" th:href="@{/guest/products(page=${currentPage - 1})}">Previous</a>
     </li>
-    <li th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
-      <a th:href="@{/products?page=${pageNo}}" th:text="${pageNo + 1}">1</a>
+    <li class="page-item" th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
+      <a class="page-link" th:href="@{/guest/products(page=${pageNo})}" th:text="${pageNo + 1}"></a>
     </li>
-    <li th:if="${currentPage != totalPages - 1}">
-      <a th:href="@{/products?page=${currentPage + 1}}">Next</a>
+    <li class="page-item" th:if="${currentPage < totalPages - 1}">
+      <a class="page-link" th:href="@{/guest/products(page=${currentPage + 1})}">Next</a>
     </li>
   </ul>
 </div>

@@ -11,6 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @Controller
 @RequestMapping
 public class ProductController {
@@ -22,7 +25,7 @@ public class ProductController {
     private CartService cartService;
 
     @GetMapping("/products")
-    public String getAllProducts(Model model,  @RequestParam(defaultValue = "0") int page) {
+    public String getAllProducts(Model model, @RequestParam(defaultValue = "0") int page) {
         int pageSize = 12;
         Pageable pageable = PageRequest.of(page, pageSize);
 

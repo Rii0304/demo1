@@ -20,7 +20,7 @@ public class OrderController {
     public String showAllOrders(Model model) {
         List<Order> orders = orderService.getAllOrders();
         model.addAttribute("orders", orders);
-        return "ManagementOrder";
+        return "managementOrder";
     }
     @GetMapping("/edit/{id}")
     public String showEditOrderForm(@PathVariable("id") Long id, Model model) {

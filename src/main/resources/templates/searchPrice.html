@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,7 +23,6 @@
         <li class="nav-item"><a class="nav-link" href="/products">All Products</a></li>
         <li class="nav-item"><a class="nav-link" href="/order">Order List</a></li>
       </ul>
-      
       <form th:action="@{/search}" method="get" class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Search..." name="keyword" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
@@ -37,6 +36,7 @@
     </div>
   </div>
 </nav>
+
 <div class="container mt-4">
   <h5>Search By Price</h5>
   <form action="/searchPrice" method="post" class="form-inline">
@@ -47,15 +47,16 @@
     </div>
   </form>
 </div>
+
 <section class="py-5">
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5">
-      <th:block th:each="prod, iterStat : ${products}">
+      <th:block th:each="prod : ${products}">
         <div class="col-lg-3 col-md-4 col-sm-6 mb-5">
           <div class="card h-100">
             <div class="card-body p-4">
               <div class="text-center">
-                <img th:src="${prod.imageURL}" width="200" height="200" alt="">
+                <img th:src="${prod.imageURL}" width="200" height="200" alt="Product Image" class="img-fluid">
                 <a th:href="@{/products/{id}(id=${prod.id})}" class="text-decoration-none">
                   <h5 th:text="${prod.productName}"></h5>
                 </a>
@@ -87,7 +88,19 @@
     </li>
   </ul>
 </div>
-
+<div th:if="${totalPages > 1}">
+  <ul class="pagination justify-content-center">
+    <li class="page-item" th:if="${currentPage > 0}">
+      <a class="page-link" th:href="@{/products(page=${currentPage - 1})}">Previous</a>
+    </li>
+    <li class="page-item" th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
+      <a class="page-link" th:href="@{/products(page=${pageNo})}" th:text="${pageNo + 1}"></a>
+    </li>
+    <li class="page-item" th:if="${currentPage < totalPages - 1}">
+      <a class="page-link" th:href="@{/products(page=${currentPage + 1})}">Next</a>
+    </li>
+  </ul>
+</div>
 <!-- Footer-->
 <footer class="py-5 bg-dark">
   <div class="container">

@@ -4,55 +4,95 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Edit Product</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .container {
+      margin-top: 50px;
+    }
+    .rounded-border {
+      border: 1px solid #007bff;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 123, 255, 0.2);
+      padding: 30px;
+    }
+    h2 {
+      color: #007bff;
+    }
+    .form-label {
+      font-weight: bold;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .btn-outline-primary {
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    .btn-outline-primary:hover {
+      background-color: #007bff;
+      color: white;
+    }
+    .form-control:focus {
+      border-color: #007bff;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+  </style>
 </head>
 <body>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-8 mx-auto rounded border p-4 m-4">
+    <div class="col-md-8 mx-auto rounded-border">
       <h2 class="text-center mb-5">Edit Product</h2>
       
       <form method="post" enctype="multipart/form-data" th:object="${product}" th:action="@{/ManagementProd/update/{id}(id=${product.id})}">
-        <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Name</label>
-          <div class="col-sm-8">
-            <input class="form-control" th:field="${product.productName}">
-          </div>
-          
-          <label class="col-sm-4 col-form-label">Description</label>
-          <div class="col-sm-8">
-            <input class="form-control" th:field="${product.description}" name="description">
-          </div>
-          
-          <label class="col-sm-4 col-form-label">Image</label>
-          <div class="col-sm-8">
-            <input class="form-control" type="file" name="imageURL">
-          </div>
-          
-          <label class="col-sm-4 col-form-label">Price</label>
-          <div class="col-sm-8">
-            <input class="form-control" type="number" th:field="${product.price}" name="price">
-          </div>
-          
-          <label class="col-sm-4 col-form-label">Details</label>
-          <div class="col-sm-8">
-            <input class="form-control" th:field="${product.details}" name="details">
-          </div>
-          
-          <label class="col-sm-4 col-form-label">Category</label>
-          <div class="col-sm-8">
-            <select class="form-select" name="category" th:field="${product.category.id}">
-              <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
-            </select>
-          </div>
+        <div class="mb-3">
+          <label class="form-label">Product Name</label>
+          <input class="form-control" th:field="${product.productName}" required>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Description</label>
+          <textarea class="form-control" th:field="${product.description}" rows="3" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Upload Image</label>
+          <input class="form-control" type="file" name="imageURL">
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Price ($)</label>
+          <input class="form-control" type="number" th:field="${product.price}" required>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Product Details</label>
+          <textarea class="form-control" th:field="${product.details}" rows="3" required></textarea>
+        </div>
+        
+        <div class="mb-3">
+          <label class="form-label">Category</label>
+          <select class="form-select" th:field="${product.category.id}" required>
+            <option value="" disabled selected>Select a category</option>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+          </select>
         </div>
         
         <div class="row">
-          <div class="offset-sm-4 col-sm-4 d-grid">
-            <button type="submit" class="btn btn-primary" href="/ManagementProd/update/{id}">Save Changes</button>
+          <div class="col-md-6 d-grid">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
           </div>
-          <div class="col-sm-4 d-grid">
+          <div class="col-md-6 d-grid">
             <a class="btn btn-outline-primary" href="/ManagementProd" role="button">Cancel</a>
           </div>
         </div>
@@ -62,6 +102,6 @@
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

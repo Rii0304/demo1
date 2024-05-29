@@ -10,9 +10,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
-public class Config {
+public class ConfigPay {
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "/home";
+    public static String vnp_ReturnUrl = "http://localhost:8080/order/thank-you";
     public static String vnp_TmnCode = "9J6NYDVS";
     public static String secretKey = "CFMH0MYOKNC3Q3S890IQFZOBJ1TWUQW5";
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";

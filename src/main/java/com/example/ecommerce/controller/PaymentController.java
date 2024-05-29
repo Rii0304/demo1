@@ -1,10 +1,9 @@
 package com.example.ecommerce.controller;
 
-import com.example.ecommerce.config.Config;
-import lombok.Value;
+import com.example.ecommerce.config.ConfigPay;
+import jakarta.websocket.server.PathParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
@@ -13,20 +12,21 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.util.*;
 @RestController
+@RequestMapping("payment")
 public class PaymentController {
     @GetMapping("/pay")
-    public String getPay() throws UnsupportedEncodingException {
+    public String getPay(@PathParam("totalPrice") Long totalPrice, @PathParam("contractId") Integer contractId) throws UnsupportedEncodingException {
 
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        long amount = 10000*100;
+        long amount = 100000L * totalPrice;
         String bankCode = "NCB";
 
-        String vnp_TxnRef = Config.getRandomNumber(8);
+        String vnp_TxnRef = ConfigPay.getRandomNumber(8);
         String vnp_IpAddr = "127.0.0.1";
 
-        String vnp_TmnCode = Config.vnp_TmnCode;
+        String vnp_TmnCode = ConfigPay.vnp_TmnCode;
 
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
@@ -39,7 +39,7 @@ public class PaymentController {
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", orderType);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_ReturnUrl", Config.vnp_ReturnUrl);
+        vnp_Params.put("vnp_ReturnUrl", ConfigPay.vnp_ReturnUrl);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -75,9 +75,9 @@ public class PaymentController {
             }
         }
         String queryUrl = query.toString();
-        String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
+        String vnp_SecureHash = ConfigPay.hmacSHA512(ConfigPay.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
-        String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
+        String paymentUrl = ConfigPay.vnp_PayUrl + "?" + queryUrl;
 
         return paymentUrl;
     }

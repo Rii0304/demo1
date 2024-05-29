@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -27,6 +28,8 @@ public class CheckoutController {
     CartService cartService;
     @Autowired
     CustomerService customerService;
+    @Autowired
+    private PaymentController paymentController;
 
     @GetMapping("view/checkout")
     public String showCart(Model model, HttpSession session) {
@@ -48,7 +51,7 @@ public class CheckoutController {
 
 
     @PostMapping("checkout")
-    public String checkout(@ModelAttribute("orderRequest") OrderRequest orderRequest, HttpSession session) {
+    public String checkout(@ModelAttribute("orderRequest") OrderRequest orderRequest) throws UnsupportedEncodingException {
         Order order = new Order();
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -68,9 +71,16 @@ public class CheckoutController {
         order.setOrderDate(new Date());
         orderService.saveOrder(order);
 
+        String paymentUrl = paymentController.getPay(order.getTotalPrice().longValue(), order.getId().intValue());
+
         cartService.clear();
 
-        return "redirect:/home";
+        return "redirect:" + paymentUrl;
+    }
+
+    @GetMapping("/thank-you")
+    public String showThankYou() {
+        return "thankForCheckout";
     }
 }
 
