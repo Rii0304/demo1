@@ -10,6 +10,9 @@ import com.example.ecommerce.repository.ProductRepository;
 import com.example.ecommerce.service.CategoryService;
 import com.example.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,9 +40,17 @@ public class ManagementProduct {
     @Autowired
     private CategoryService categoryService;
     @GetMapping
-    public String showProductList(Model model) {
-        List<Product> products = productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
-        model.addAttribute("product", products);
+    public String showProductList(Model model, @RequestParam(defaultValue = "0") int page) {
+        int pageSize = 12;
+
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(page, pageSize, sort);
+
+        Page<Product> productPage = productService.getAllProducts(pageable);
+
+        model.addAttribute("product", productPage.getContent());
+        model.addAttribute("totalPages", productPage.getTotalPages());
+        model.addAttribute("currentPage", page);
         return "managementProd";
     }
     @GetMapping("/create")
@@ -77,5 +88,12 @@ public class ManagementProduct {
     public String deleteProduct(@PathVariable("id") Long id) {
         productService.deleteProduct(id);
         return "redirect:/ManagementProd";
+    }
+
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("keyword") String keyword, Model model) {
+        List<Product> products = productService.searchProducts(keyword);
+        model.addAttribute("product", products);
+        return "managementProd";
     }
 }

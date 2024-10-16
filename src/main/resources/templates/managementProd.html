@@ -61,6 +61,7 @@
         <th>Action</th>
       </tr>
       </thead>
+      
       <tbody>
       <tr th:each="prod : ${product}">
         <td th:text="${prod.id}"></td>
@@ -78,21 +79,21 @@
     </table>
   </div>
   
-  <!-- Pagination -->
-  <nav th:if="${totalPages > 1}" aria-label="Page navigation">
-    <ul class="pagination justify-content-center mt-4">
-      <li class="page-item" th:if="${currentPage != 0}">
-        <a class="page-link" th:href="@{/ManagementProd?page=${currentPage - 1}}">Previous</a>
+  <div th:if="${totalPages > 1}">
+    <ul class="pagination justify-content-center">
+      <li class="page-item" th:if="${currentPage > 0}">
+        <a class="page-link" th:href="@{/ManagementProd(page=${currentPage - 1})}">Previous</a>
       </li>
       <li class="page-item" th:each="pageNo : ${#numbers.sequence(0, totalPages - 1)}">
-        <a class="page-link" th:href="@{/ManagementProd?page=${pageNo}}" th:text="${pageNo + 1}"></a>
+        <a class="page-link" th:href="@{/ManagementProd(page=${pageNo})}"
+           th:text="${pageNo + 1}"
+           th:class="${pageNo == currentPage} ? 'active' : ''"></a>
       </li>
-      <li class="page-item" th:if="${currentPage != totalPages - 1}">
-        <a class="page-link" th:href="@{/ManagementProd?page=${currentPage + 1}}">Next</a>
+      <li class="page-item" th:if="${currentPage < totalPages - 1}">
+        <a class="page-link" th:href="@{/ManagementProd(page=${currentPage + 1})}">Next</a>
       </li>
     </ul>
-  </nav>
-</div>
+  </div>
 
 <!-- Footer -->
 <footer class="bg-dark text-white text-center py-4 mt-5">

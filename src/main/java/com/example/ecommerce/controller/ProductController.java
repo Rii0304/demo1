@@ -1,7 +1,9 @@
 package com.example.ecommerce.controller;
 
+import com.example.ecommerce.entity.Category;
 import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.service.CartService;
+import com.example.ecommerce.service.CategoryService;
 import com.example.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +24,7 @@ public class ProductController {
     private  ProductService productService;
 
     @Autowired
-    private CartService cartService;
+    private CategoryService categoryService;
 
     @GetMapping("/products")
     public String getAllProducts(Model model, @RequestParam(defaultValue = "0") int page) {
@@ -43,5 +45,6 @@ public class ProductController {
         model.addAttribute("prod", products);
         return "productDetail";
     }
+
 }
 

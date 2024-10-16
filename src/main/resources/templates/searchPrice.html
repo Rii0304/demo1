@@ -37,13 +37,22 @@
   </div>
 </nav>
 
+<script>
+  function submitPriceFilterForm() {
+    document.getElementById('priceFilterForm').submit();
+  }
+</script>
+
 <div class="container mt-4">
   <h5>Search By Price</h5>
-  <form action="/searchPrice" method="post" class="form-inline">
-    <div class="input-group mb-3">
-      <input name="Min" class="form-control" placeholder="Min Price" aria-label="Min Price" required>
-      <input name="Max" class="form-control ms-2" placeholder="Max Price" aria-label="Max Price" required>
-      <button class="btn btn-outline-primary ms-2" type="submit">Search</button>
+  <form action="/searchPrice" method="post" class="form-inline" id="priceFilterForm">
+    <div class="input-group mb-3" style="width: 200px">
+      <select name="priceRange" class="form-select" onchange="submitPriceFilterForm()">
+        <option value="0-20">0 to 20</option>
+        <option value="21-40">21 to 40</option>
+        <option value="41-60">41 to 60</option>
+        <option value="60+">60 and above</option>
+      </select>
     </div>
   </form>
 </div>

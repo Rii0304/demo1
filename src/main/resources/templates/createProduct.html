@@ -70,11 +70,32 @@
         </div>
         <div class="mb-3">
           <label for="category" class="form-label">Category</label>
-          <select class="form-select" id="category" th:field="*{category.id}" required>
+          <select class="form-select" id="category" th:field="*{category.id}" required onchange="showNewCategoryInput()">
             <option value="" disabled selected>Select a category</option>
             <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+            <option value="other">New Category</option>
           </select>
         </div>
+        
+        <div class="mb-3" id="newCategoryInput" style="display: none;">
+          <label for="newCategory" class="form-label">New Category</label>
+          <input type="text" class="form-control" id="newCategory" name="newCategory">
+        </div>
+        
+        <script>
+          function showNewCategoryInput() {
+            const categorySelect = document.getElementById('category');
+            const newCategoryInput = document.getElementById('newCategoryInput');
+            
+            if (categorySelect.value === 'other') {
+              newCategoryInput.style.display = 'block';
+            } else {
+              newCategoryInput.style.display = 'none';
+            }
+          }
+        </script>
+        
+        
         <button type="submit" class="btn btn-primary">Create Product</button>
       </form>
     </div>

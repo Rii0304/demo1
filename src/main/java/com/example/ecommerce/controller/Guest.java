@@ -91,11 +91,29 @@ public class Guest {
         model.addAttribute("products", products);
         return "searchGuest";
     }
-    @PostMapping("/guest/searchPrice")
-    public String searchByPrice(@RequestParam("Min") Double minPrice, @RequestParam("Max") Double maxPrice, Model model) {
+//    @PostMapping("/guest/searchPrice")
+//    public String searchByPrice(@RequestParam("Min") Double minPrice, @RequestParam("Max") Double maxPrice, Model model) {
+//
+//        List<Product> products = productService.findProductsByPriceRange(minPrice, maxPrice);
+//        model.addAttribute("products", products);
+//        return "searchGuest";
+//    }
 
-        List<Product> products = productService.findProductsByPriceRange(minPrice, maxPrice);
+    @PostMapping("/guest/searchPrice")
+    public String searchByPriceRange(@RequestParam("priceRange") String priceRange, Model model) {
+        List<Product> products;
+
+        if (priceRange.equals("60+")) {
+            products = productService.findByPriceGreaterThan(60.0);
+        } else {
+            String[] range = priceRange.split("-");
+            Double minPrice = Double.parseDouble(range[0]);
+            Double maxPrice = Double.parseDouble(range[1]);
+            products = productService.findByPriceBetween(minPrice, maxPrice);
+        }
+
         model.addAttribute("products", products);
+
         return "searchGuest";
     }
 }

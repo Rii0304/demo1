@@ -8,6 +8,7 @@ import com.example.ecommerce.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -75,11 +76,21 @@ public class ProductImpl implements ProductService {
         productRepository.save(entity);
     }
 
+//    @Override
+//    public List<Product> findProductsByPriceRange(Double minPrice, Double maxPrice) {
+//        return productRepository.findByPriceBetween(minPrice, maxPrice);
+//    }
+
+
     @Override
-    public List<Product> findProductsByPriceRange(Double minPrice, Double maxPrice) {
+    public List<Product> findByPriceBetween(Double minPrice, Double maxPrice) {
         return productRepository.findByPriceBetween(minPrice, maxPrice);
     }
 
+    @Override
+    public List<Product> findByPriceGreaterThan(Double minPrice) {
+        return productRepository.findByPriceGreaterThan(minPrice);
+    }
     private String generateImagePath(MultipartFile file) throws IOException {
         File file1 = new File("C:\\Users\\ADMIN\\IdeaProjects\\demo1\\src\\main\\resources\\static\\image\\" + file.getOriginalFilename());
 
