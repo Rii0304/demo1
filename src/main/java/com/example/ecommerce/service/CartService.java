@@ -19,4 +19,5 @@ public interface CartService {
     Collection<CartItem> getAllItem();
 
     double getAmount();
+
 }

@@ -41,7 +41,7 @@ public class ManagementProduct {
     private CategoryService categoryService;
     @GetMapping
     public String showProductList(Model model, @RequestParam(defaultValue = "0") int page) {
-        int pageSize = 12;
+        int pageSize = 5;
 
         Sort sort = Sort.by(Sort.Direction.DESC, "id");
         Pageable pageable = PageRequest.of(page, pageSize, sort);
