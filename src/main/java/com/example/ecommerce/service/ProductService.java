@@ -17,7 +17,6 @@ public interface ProductService {
     List<Product> searchProducts(String keyword);
     void updateProd(Long id,UpSertProduct product) throws IOException;
     void createProd(UpSertProduct product) throws IOException;
-//    List<Product> findProductsByPriceRange(Double minPrice, Double maxPrice);
     List<Product> findByPriceBetween(Double minPrice, Double maxPrice);
 
     List<Product> findByPriceGreaterThan(Double minPrice);

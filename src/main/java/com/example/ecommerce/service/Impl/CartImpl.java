@@ -1,15 +1,12 @@
 package com.example.ecommerce.service.Impl;
 
 import com.example.ecommerce.bean.CartItem;
-import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.service.CartService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @SessionScope
@@ -50,5 +47,4 @@ public class CartImpl implements CartService {
     public double getAmount(){
         return maps.values().stream().mapToDouble(item -> item.getQty() * item.getPrice()).sum();
     }
-
 }

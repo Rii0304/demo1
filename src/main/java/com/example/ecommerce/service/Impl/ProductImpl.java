@@ -76,11 +76,6 @@ public class ProductImpl implements ProductService {
         productRepository.save(entity);
     }
 
-//    @Override
-//    public List<Product> findProductsByPriceRange(Double minPrice, Double maxPrice) {
-//        return productRepository.findByPriceBetween(minPrice, maxPrice);
-//    }
-
 
     @Override
     public List<Product> findByPriceBetween(Double minPrice, Double maxPrice) {
