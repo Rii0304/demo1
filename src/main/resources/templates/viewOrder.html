@@ -60,7 +60,7 @@
     <tr th:each="order : ${orders}">
       <td th:text="${order.id}"></td>
       <td th:text="${order.fullName}"></td>
-      <td th:text="@{${order.totalPrice} + '$'}"></td>
+      <td th:text="@{${order.totalPrice} + 'VND'}"></td>
       <td th:text="${order.orderStatus}"></td>
       <td th:text="${order.orderDate}"></td>
       <td th:text="${order.deliveryAddress}"></td>

@@ -20,7 +20,7 @@ public class PaymentController {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String orderType = "other";
-        long amount = 100000L * totalPrice;
+        long amount = 100L * totalPrice;
         String bankCode = "NCB";
 
         String vnp_TxnRef = ConfigPay.getRandomNumber(8);

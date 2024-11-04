@@ -37,7 +37,7 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="mb-0">User List</h2>
     <form class="d-flex" th:action="@{/ManagementUser/search}" method="get">
-      <input style="width: 300px" class="form-control me-2" type="search" name="keyword" placeholder="Search by name, email..." aria-label="Search">
+      <input style="width: 300px" class="form-control me-2" type="search" name="keyword" placeholder="Search by..." aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
@@ -65,9 +65,11 @@
         <div th:unless="${user.username == 'admin'}">
           <a class="btn btn-primary btn-sm" th:href="@{'/ManagementUser/edit/' + ${user.id}}">Edit</a>
           <a class="btn btn-danger btn-sm" href="#" th:onclick="'confirmDelete(\'/ManagementUser/delete/' + ${user.id} + '\')'">Delete</a>
+        </div>
       </td>
     </tr>
     </tbody>
+  
   </table>
 </div>
 

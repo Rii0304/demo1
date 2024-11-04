@@ -56,10 +56,10 @@
             <div class="card-body p-4">
               <div class="text-center">
                 <img th:src="${product.imageURL}" width="200" height="200" alt="Product Image" class="img-fluid"/>
-                <a th:href="@{/guest/product/{id}(id=${product.id})}" class="text-decoration-none">
+                <a th:href="@{/guest/products/{id}(id=${product.id})}" class="text-decoration-none">
                   <h5 th:text="${product.productName}"></h5>
                 </a>
-                <p th:text="'Price: $' + ${product.price}"></p>
+                <p th:text="'Price: ' + ${product.price} + 'VND'"></p>
               </div>
             </div>
             <!-- Product action -->
@@ -81,27 +81,28 @@
   <div class="container px-4 px-lg-5 mt-5">
     <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
       <!-- Loop through the favorite products -->
-      <th:block th:each="product : ${favoriteProducts}">
+      <th:block th:each="prod, iterStat : ${products}">
         <div class="col mb-5">
           <div class="card h-100">
             <!-- Product image -->
             <div class="card-body p-4">
               <div class="text-center">
-                <img th:src="${product.imageURL}" width="200" height="200" alt="Product Image" class="img-fluid"/>
-                <a th:href="@{/guest/products/{id}(id=${product.id})}" class="text-decoration-none">
-                  <h5 th:text="${product.productName}"></h5>
+                <img th:src="${prod.imageURL}" width="200" height="200" alt="Product Image" class="img-fluid"/>
+                <a th:href="@{/guest/products/{id}(id=${prod.id})}" class="text-decoration-none">
+                  <h5 th:text="${prod.productName}"></h5>
                 </a>
-                <p th:text="'Price: $' + ${product.price}"></p>
+                <p th:text="'Price: ' + ${prod.price} + 'VND'"></p>
               </div>
             </div>
             <!-- Product action -->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
               <div class="text-center">
-                <a class="btn btn-outline-dark mt-auto" th:href="@{/cart/add/{id}(id=${product.id})}">Add to cart</a>
+                <a class="btn btn-outline-dark mt-auto" th:href="@{/guest/add/{id}(id=${prod.id})}">Add to cart</a>
               </div>
             </div>
           </div>
         </div>
+        <th:block th:if="${iterStat.index % 5 == 4}"></th:block>
       </th:block>
     </div>
   </div>

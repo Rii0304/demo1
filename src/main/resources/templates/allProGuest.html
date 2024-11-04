@@ -47,10 +47,10 @@
   <form action="/guest/searchPrice" method="post" class="form-inline" id="priceFilterForm">
     <div class="input-group mb-3" style="width: 200px">
       <select name="priceRange" class="form-select" onchange="submitPriceFilterForm()">
-        <option value="0-20">0 to 20</option>
-        <option value="21-40">21 to 40</option>
-        <option value="41-60">41 to 60</option>
-        <option value="60+">60 and above</option>
+        <option value="" disabled selected>Select Price</option>
+        <option value="0-10999999">0 to 10.000.000</option>
+        <option value="11000000-20999999">11.000.000 to 20.000.000</option>
+        <option value="30000000+">30.000.000 and above</option>
       </select>
     </div>
   </form>
@@ -65,8 +65,9 @@
             <div class="card-body p-4">
               <div class="text-center">
                 <img th:src="${prod.imageURL}" width="200" height="200" alt="">
-                <a th:href="@{/guest/products/{id}(id=${prod.id})}" class="text-decoration-none"><h5 th:text="${prod.productName}"></h5></a>
-                <p th:text="${'Price: $' + prod.price}"></p>
+                <a th:href="@{/guest/products/{id}(id=${prod.id})}" class="text-decoration-none">
+                  <h5 th:text="${prod.productName}"></h5></a>
+                <p th:text="${'Price: ' + prod.price + 'VND'}"></p>
               </div>
             </div>
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
@@ -77,7 +78,7 @@
           </div>
         </div>
         <th:block th:if="${iterStat.index % 5 == 4}"></th:block>
-  </th:block>
+      </th:block>
   </div>
   </div>
 </section>

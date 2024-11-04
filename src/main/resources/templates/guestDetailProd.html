@@ -53,7 +53,7 @@
         <div class="ps-lg-3">
           <h1 class="title text-dark" th:text="${prod.productName}"></h1>
           <div class="mb-3">
-            <h3 class="" th:text="${'Price: $' + prod.price}" style="color: gold"></h3>
+            <h3 class="" th:text="${'Price: ' + prod.price + 'VND'}" style="color: gold"></h3>
           </div>
           
           <td th:text="${prod.description}"></td>

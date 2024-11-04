@@ -2,6 +2,9 @@ package com.example.ecommerce.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table( name = "customers")
 public class Customer {
@@ -20,6 +23,28 @@ public class Customer {
     @Column(name = "Password")
     private String password;
     private String role;
+//    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private Set<UserRole> userRoles = new HashSet<>();
+//
+//
+//    public Set<UserRole> getUserRoles() {
+//        return userRoles;
+//    }
+//
+//    public void setUserRoles(Set<UserRole> userRoles) {
+//        this.userRoles = userRoles;
+//    }
+
+    private boolean enabled = false;
+
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
 
     public String getRole() {
         return role;

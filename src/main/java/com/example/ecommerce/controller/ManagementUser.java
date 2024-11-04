@@ -1,6 +1,7 @@
 package com.example.ecommerce.controller;
 
 import com.example.ecommerce.entity.Customer;
+import com.example.ecommerce.entity.Product;
 import com.example.ecommerce.service.CustomerService;
 import jakarta.persistence.Access;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +43,12 @@ public class ManagementUser {
     public String deleteUser(@PathVariable("id") Long id) {
         customerService.deleteUser(id);
         return "redirect:/ManagementUser";
+    }
+
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam("keyword") String keyword, Model model) {
+        List<Customer> users = customerService.searchUser(keyword);
+        model.addAttribute("user", users);
+        return "managementUser";
     }
 }
